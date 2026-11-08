@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sign in to your MyTech account.">
+  <title>Sign in | MyTech</title>
+  <style>
+    :root { font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #172033; background: #f5f7fc; }
+    * { box-sizing: border-box; }
+    body { min-height: 100vh; margin: 0; display: grid; place-items: center; padding: 24px; background: radial-gradient(circle at 12% 15%, #e4eaff 0, transparent 34%), radial-gradient(circle at 88% 85%, #e4f7f3 0, transparent 32%), #f7f8fc; }
+    .layout { width: min(100%, 960px); min-height: 590px; display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; border: 1px solid #e8ebf2; border-radius: 24px; background: white; box-shadow: 0 24px 70px rgba(28,39,71,.12); }
+    .intro { display: flex; flex-direction: column; justify-content: space-between; padding: 48px; color: white; background: linear-gradient(145deg,#172554,#3155b8 58%,#4778d8); }
+    .brand { display: flex; align-items: center; gap: 12px; font-size: 20px; font-weight: 750; letter-spacing: -.5px; }
+    .brand-mark { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 12px; background: #ffffff29; font-size: 19px; }
+    .intro-copy { max-width: 360px; }
+    .eyebrow { color: #c6d5ff; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+    .intro h1 { margin: 16px 0; font-size: clamp(32px,4vw,46px); line-height: 1.12; letter-spacing: -1.8px; }
+    .intro p { color: #dbe5ff; font-size: 15px; line-height: 1.75; }
+    .intro-foot { color: #c6d5ff; font-size: 12px; }
+    .form-panel { display: flex; align-items: center; justify-content: center; padding: 48px; }
+    .form-wrap { width: 100%; max-width: 360px; }
+    h2 { margin: 0 0 8px; font-size: 29px; letter-spacing: -1px; }
+    .subheading { margin: 0 0 32px; color: #737d91; font-size: 14px; }
+    .field { margin-bottom: 19px; }
+    label { display: block; margin-bottom: 8px; font-size: 13px; font-weight: 650; color: #34405a; }
+    input[type="email"], input[type="password"], input[type="text"] { width: 100%; height: 48px; padding: 0 14px; border: 1px solid #dce1eb; border-radius: 10px; outline: none; color: #172033; font: inherit; font-size: 14px; transition: border-color .2s, box-shadow .2s; }
+    input:focus { border-color: #4268d5; box-shadow: 0 0 0 3px #4268d51f; }
+    .password-wrap { position: relative; }
+    .password-wrap input { padding-right: 66px; }
+    .toggle { position: absolute; top: 50%; right: 12px; transform: translateY(-50%); border: 0; padding: 5px; background: transparent; color: #52658f; font: inherit; font-size: 12px; font-weight: 650; cursor: pointer; }
+    .form-options { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 4px 0 24px; font-size: 12px; }
+    .remember { display: flex; align-items: center; gap: 8px; color: #68738a; }
+    .remember input { accent-color: #315bc4; }
+    a { color: #315bc4; text-decoration: none; font-weight: 650; }
+    a:hover { text-decoration: underline; }
+    .submit { width: 100%; height: 49px; border: 0; border-radius: 10px; background: #315bc4; color: white; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; box-shadow: 0 8px 18px #315bc433; transition: background .2s, transform .2s; }
+    .submit:hover { background: #254ba9; transform: translateY(-1px); }
+    .message { min-height: 20px; margin: 12px 0 0; color: #b42318; font-size: 12px; }
+    .signup { margin: 25px 0 0; text-align: center; color: #7b8496; font-size: 13px; }
+    @media (max-width: 720px) {
+      body { padding: 14px; }
+      .layout { grid-template-columns: 1fr; min-height: auto; max-width: 460px; }
+      .intro { min-height: 210px; padding: 26px 28px; }
+      .intro-copy { margin-top: 34px; }
+      .intro h1 { margin: 9px 0; font-size: 29px; }
+      .intro p { margin: 0; font-size: 13px; }
+      .intro-foot { display: none; }
+      .form-panel { padding: 34px 28px 38px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="layout">
+    <section class="intro" aria-label="Welcome">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">✦</span> MyTech</div>
+      <div class="intro-copy">
+        <div class="eyebrow">Welcome back</div>
+        <h1>Your workspace.<br>One sign in away.</h1>
+        <p>Sign in to continue to your MyTech account and pick up where you left off.</p>
+      </div>
+      <div class="intro-foot">© <span id="year"></span> MyTech. All rights reserved.</div>
+    </section>
+    <section class="form-panel">
+      <div class="form-wrap">
+        <h2>Sign in</h2>
+        <p class="subheading">Enter your details to access your account.</p>
+        <form id="login-form" novalidate>
+          <div class="field">
+            <label for="email">Email address</label>
+            <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="password">Password</label>
+            <div class="password-wrap">
+              <input id="password" name="password" type="password" placeholder="Enter your password" autocomplete="current-password" required minlength="8">
+              <button class="toggle" type="button" id="toggle-password" aria-label="Show password">Show</button>
+            </div>
+          </div>
+          <div class="form-options">
+            <label class="remember"><input type="checkbox" name="remember"> Remember me</label>
+            <a href="#" id="forgot-link">Forgot password?</a>
+          </div>
+          <button class="submit" type="submit">Sign in</button>
+          <p class="message" id="message" role="status" aria-live="polite"></p>
+        </form>
+        <p class="signup">New to MyTech? <a href="#" id="signup-link">Create an account</a></p>
+      </div>
+    </section>
+  </main>
+  <script>
+    const password = document.getElementById('password');
+    const toggle = document.getElementById('toggle-password');
+    const form = document.getElementById('login-form');
+    const message = document.getElementById('message');
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    toggle.addEventListener('click', () => {
+      const showing = password.type === 'password';
+      password.type = showing ? 'text' : 'password';
+      toggle.textContent = showing ? 'Hide' : 'Show';
+      toggle.setAttribute('aria-label', showing ? 'Hide password' : 'Show password');
+    });
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      message.textContent = '';
+      const email = document.getElementById('email');
+      if (!email.validity.valid) {
+        message.textContent = 'Please enter a valid email address.';
+        email.focus();
+        return;
+      }
+      if (password.value.length < 8) {
+        message.textContent = 'Password must be at least 8 characters.';
+        password.focus();
+        return;
+      }
+      message.textContent = 'Form validated. Connect an authentication backend to sign in.';
+    });
+
+    document.getElementById('forgot-link').addEventListener('click', (event) => {
+      event.preventDefault();
+      message.textContent = 'Password reset is not configured yet.';
+    });
+    document.getElementById('signup-link').addEventListener('click', (event) => {
+      event.preventDefault();
+      message.textContent = 'Account registration is not configured yet.';
+    });
+  </script>
+</body>
+</html>
